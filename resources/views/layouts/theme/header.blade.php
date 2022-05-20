@@ -3,7 +3,8 @@
         <ul class="navbar-item flex-row">
             <li class="nav-item theme-logo">
                 <a href="index.html">
-                    <img src="assets/img/90x90.jpg" class="navbar-logo" alt="logo">
+                    <img src="assets/img/livewire_logo.png" class="navbar-logo" alt="logo">
+                       <b style="font-size: 19px; color:#3B3F5C">LWPOS</b>
                 </a>
             </li>
         </ul>
@@ -159,12 +160,12 @@
 
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="assets/img/90x90.jpg" alt="admin-profile" class="img-fluid">
+                    <i class="fas fa-user text-dark"></i>
                 </a>
                 <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                     <div class="user-profile-section">
                         <div class="media mx-auto">
-                            <img src="assets/img/90x90.jpg" class="img-fluid mr-2" alt="avatar">
+                            <img src="assets/img/lara_logo.png" class="img-fluid mr-2" alt="avatar">
                             <div class="media-body">
                                 <h5>Alan Green</h5>
                                 <p>Project Leader</p>
