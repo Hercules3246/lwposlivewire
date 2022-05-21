@@ -6,8 +6,7 @@
  <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
  <link href="assets/css/structure.css" rel="stylesheet" type="text/css" class="structure" />
 
-<link rel="stylesheet" href="{{asset('plugins/font-icons/fontawesome/css/fontawesome.css')}}" type="text/css"/>
-<link rel="stylesheet" href="{{asset('css/fontawesome.css')}}" type="text/css"/>
+
 
 <link rel="stylesheet" href="{{asset('assets/css/elements/avatar.css')}}" type="text/css"/>
 
@@ -21,7 +20,7 @@
 
 
 <style>
-    aside{ 
+    aside{
         display: none !important;
     }
     .page-item.active .page-link{
