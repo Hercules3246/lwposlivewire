@@ -38,16 +38,16 @@
 
 								<td class="text-center">
 									<a href="javascript:void(0)"
-                                    wire:click="Edit({$category->id})"
+                                    wire:click="Edit({{$category->id}})"
                                     class="btn btn-dark mtmobile" title="Edit">
 										<i class="fas fa-edit"></i>
 									</a>
 
-									<a href="javascript:void(0)"
+									{{-- <a href="javascript:void(0)"
                                     onclick="Confirm('{{$category->id}}')"
                                     class="btn btn-dark" title="Delete">
 										<i class="fas fa-trash"></i>
-									</a>
+									</a> --}}
 
 
 								</td>
@@ -75,7 +75,7 @@
 	document.addEventListener('DOMContentLoaded', function(){
             window.livewire.on('category-added',msg => {
                 $('#theModal').modal('hide');
-                noty(msg)
+
             });
             window.livewire.on('category-updated',msg => {
                 $('#theModal').modal('hide');
@@ -89,28 +89,12 @@
             });
             window.livewire.on('show-modal',msg => {
                 $('#theModal').modal('show');
+                // alert("funcionando......................");
             });
             window.livewire.on('hidden.bs.modal',msg => {
                 $('.er').css('display','none');
             });
 	});
 
-    function Confirm(id)
-    {
-        swal([
-            title: 'CONFIRMAR',
-            text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
-            type: 'warning',
-            showCancelButton: true,
-            cancelButtonText: 'Cerrar',
-            cancelButtonColor: '#fff',
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#3B3F5C'
-        ]).then(function(){
-            if(result.value){
-                window.livewire.emit('deleteRow',id)
-                swal.close();
-            }
-        })
-    }
+
 </script>
