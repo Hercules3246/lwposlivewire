@@ -32,7 +32,7 @@
 								<td><h6>{{$category->name}}</h6></td>
 								<td class="text-center">
 									<span>
-										<img src="{{asset('storage/categories/'.$category->image)}}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+										<img src="{{asset('storage/categories/'.$category->imagen)}}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
 									</span>
 								</td>
 
@@ -43,11 +43,13 @@
 										<i class="fas fa-edit"></i>
 									</a>
 
-									{{-- <a href="javascript:void(0)"
-                                    onclick="Confirm('{{$category->id}}')"
+                                    <a href="javascript:void(0)"
+                                    onclick="Confirm('{{$category->id}}','{{$category->products->count()}}')"
                                     class="btn btn-dark" title="Delete">
 										<i class="fas fa-trash"></i>
-									</a> --}}
+									</a>
+
+                                    {{$category->imagen}}
 
 
 								</td>
@@ -75,7 +77,7 @@
 	document.addEventListener('DOMContentLoaded', function(){
             window.livewire.on('category-added',msg => {
                 $('#theModal').modal('hide');
-
+                noty(msg)
             });
             window.livewire.on('category-updated',msg => {
                 $('#theModal').modal('hide');
@@ -95,6 +97,30 @@
                 $('.er').css('display','none');
             });
 	});
+	function Confirm(id, products)
+     {
+        if(products > 0)
+        {
+            swal('NO SE PUEDE ELIMINAR LA CATEGORIA PORQUE TIENE PRODUCTOS RELACIONADOS')
+            return;
+        }
 
+swal({
+    title: 'CONFIRMAR',
+    text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
+    type: 'warning',
+    showCancelButton: true,
+    cancelButtonText: 'Cerrar',
+    cancelButtonColor: '#fff',
+    confirmButtonColor: '#3B3F5C',
+    confirmButtonText: 'Aceptar'
+}).then(function(result) {
+    if (result.value) {
+        window.livewire.emit('deleteRow', id)
+        swal.close()
+    }
+
+})
+}
 
 </script>
