@@ -49,9 +49,6 @@
 										<i class="fas fa-trash"></i>
 									</a>
 
-                                    {{$category->imagen}}
-
-
 								</td>
 							</tr>
                             @endforeach
