@@ -98,7 +98,7 @@
                 $('#theModal').modal('show');
                 // alert("funcionando......................");
             });
-            window.livewire.on('hidden.bs.modal',msg => {
+            $('#themodal').on('hidden.bs.modal',function(e){
                 $('.er').css('display','none');
             });
 	});

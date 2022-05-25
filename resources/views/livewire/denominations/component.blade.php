@@ -20,31 +20,33 @@
 					<table class="table table-bordered table striped mt-1">
 						<thead class="text-white" style="background: #3B3F5C">
 							<tr>
-								<th class="table-th text-white">DESCRIPCIÓN</th>
-								<th class="table-th text-white">IMAGEN</th>
-								<th class="table-th text-white">ACTIONS</th>
+								<th class="table-th text-white">TIPO</th>
+								<th class="table-th text-white text-center">VALOR</th>
+								<th class="table-th text-white text-center">IMAGEN</th>
+								<th class="table-th text-white text-center">ACTIONS</th>
 							</tr>
 						</thead>
 						<tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($data as $coin)
 
 							<tr>
-								<td><h6>{{$category->name}}</h6></td>
+								<td><h6>{{$coin->type}}</h6></td>
+								<td class="text-center"><h6>${{number_format($coin->value,2)}}</h6></td>
 								<td class="text-center">
 									<span>
-										<img src="{{asset('storage/categories/'.$category->imagen)}}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+										<img src="{{asset('storage/'.$coin->imagen)}}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
 									</span>
 								</td>
 
 								<td class="text-center">
 									<a href="javascript:void(0)"
-                                    wire:click="Edit({{$category->id}})"
+                                    wire:click="Edit({{$coin->id}})"
                                     class="btn btn-dark mtmobile" title="Edit">
 										<i class="fas fa-edit"></i>
 									</a>
 
                                     <a href="javascript:void(0)"
-                                    onclick="Confirm('{{$category->id}}','{{$category->products->count()}}')"
+                                    onclick="Confirm('{{$coin->id}}')"
                                     class="btn btn-dark" title="Delete">
 										<i class="fas fa-trash"></i>
 									</a>
@@ -55,7 +57,7 @@
 
 						</tbody>
 					</table>
-					{{$categories->links()}}
+					{{$data->links()}}
 				</div>
 
 			</div>
@@ -66,21 +68,21 @@
 
 	</div>
 
-	@include('livewire.category.form')
+	@include('livewire.denominations.form')
 </div>
 
 
 <script>
 	document.addEventListener('DOMContentLoaded', function(){
-            window.livewire.on('category-added',msg => {
+        window.livewire.on('item-added',msg => {
                 $('#theModal').modal('hide');
                 noty(msg)
             });
-            window.livewire.on('category-updated',msg => {
+            window.livewire.on('item-updated',msg => {
                 $('#theModal').modal('hide');
                 noty(msg)
             });
-            window.livewire.on('category-deleted',msg => {
+            window.livewire.on('item-deleted',msg => {
                 noty(msg)
             });
             window.livewire.on('hide-modal',msg => {
@@ -94,30 +96,30 @@
                 $('.er').css('display','none');
             });
 	});
-	function Confirm(id, products)
+
+    function Confirm(id)
      {
-        if(products > 0)
-        {
-            swal('NO SE PUEDE ELIMINAR LA CATEGORIA PORQUE TIENE PRODUCTOS RELACIONADOS')
-            return;
-        }
+        // if(products > 0)
+        // {
+        //     swal('NO SE PUEDE ELIMINAR LA CATEGORIA PORQUE TIENE PRODUCTOS RELACIONADOS')
+        //     return;
+        // }
 
-swal({
-    title: 'CONFIRMAR',
-    text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
-    type: 'warning',
-    showCancelButton: true,
-    cancelButtonText: 'Cerrar',
-    cancelButtonColor: '#fff',
-    confirmButtonColor: '#3B3F5C',
-    confirmButtonText: 'Aceptar'
-}).then(function(result) {
-    if (result.value) {
-        window.livewire.emit('deleteRow', id)
-        swal.close()
-    }
+        swal({
+            title: 'CONFIRMAR',
+            text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#fff',
+            confirmButtonColor: '#3B3F5C',
+            confirmButtonText: 'Aceptar'
+        }).then(function(result) {
+            if (result.value) {
+                window.livewire.emit('deleteRow', id)
+                swal.close()
+            }
 
-})
+        })
 }
-
 </script>
