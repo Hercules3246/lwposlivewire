@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="{{asset('assets/css/widgets/modules-widgets.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('assets/css/forms/theme-checkbox-radio.css')}}" type="text/css" />
 
+<link rel="stylesheet" href="{{asset('assets/css/apps/scrumboard.css')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('assets/css/apps/notes.css')}}" type="text/css">
 
 <style>
     aside{
