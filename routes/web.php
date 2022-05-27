@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\CategoriesController;
 use App\Http\Livewire\CoinsController;
+use App\Http\Livewire\PermisosController;
 use App\Http\Livewire\PosController;
 use App\Http\Livewire\ProductController;
+use App\Http\Livewire\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,8 @@ Route::get('/categories', CategoriesController::class);
 Route::get('/products', ProductController::class);
 Route::get('/coins', CoinsController::class);
 Route::get('/pos', PosController::class);
+Route::get('/roles', RolesController::class);
+Route::get('/permisos', PermisosController::class);
 
 
 
