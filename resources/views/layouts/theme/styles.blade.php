@@ -6,8 +6,7 @@
  <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
  <link href="assets/css/structure.css" rel="stylesheet" type="text/css" class="structure" />
 
-<link rel="stylesheet" href="{{asset('plugins/font-icons/fontawesome/css/fontawesome.css')}}" type="text/css"/>
-<link rel="stylesheet" href="{{asset('css/fontawesome.css')}}" type="text/css"/>
+
 
 <link rel="stylesheet" href="{{asset('assets/css/elements/avatar.css')}}" type="text/css"/>
 
@@ -19,9 +18,11 @@
 <link rel="stylesheet" href="{{asset('assets/css/widgets/modules-widgets.css')}}" type="text/css" />
 <link rel="stylesheet" href="{{asset('assets/css/forms/theme-checkbox-radio.css')}}" type="text/css" />
 
+<link rel="stylesheet" href="{{asset('assets/css/apps/scrumboard.css')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('assets/css/apps/notes.css')}}" type="text/css">
 
 <style>
-    aside{ 
+    aside{
         display: none !important;
     }
     .page-item.active .page-link{
@@ -44,6 +45,24 @@
         .inblock{
             display: block;
         }
+    }
+    /*Sidebar Background*/
+    .sidebar-theme #compactSidebar {
+      background: #191e3a !important;
+    }
+    /*Sidebar collapse background*/
+    .header-container .sidebarCollapse {
+        color: #3b3f5c!important;
+    }
+    .navbar .navbar-item .nav-item form.form-inline input.search-form-control {
+        font-size: 15px;
+        background-color: #3b3f5c !important;
+        padding-right: 40px;
+        padding-top: 12px;
+        border: none;
+        color: #fff;
+        box-shadow: none;
+        border-radius: 30px;
     }
 </style>
 
