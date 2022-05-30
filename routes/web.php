@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\AsignarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\CategoriesController;
 use App\Http\Livewire\CoinsController;
@@ -32,6 +33,7 @@ Route::get('/coins', CoinsController::class);
 Route::get('/pos', PosController::class);
 Route::get('/roles', RolesController::class);
 Route::get('/permisos', PermisosController::class);
+Route::get('/asignar', AsignarController::class);
 
 
 
