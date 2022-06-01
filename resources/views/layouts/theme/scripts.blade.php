@@ -4,6 +4,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/app.js"></script>
+
 <script>
     $(document).ready(function() {
         App.init();
@@ -29,5 +30,7 @@
     }
 </script>
 <script src="{{asset('plugins/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('js/apexcharts.js')}}"></script>
+
 
 @livewireScripts

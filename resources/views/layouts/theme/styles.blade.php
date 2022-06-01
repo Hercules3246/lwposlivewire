@@ -20,6 +20,8 @@
 
 <link rel="stylesheet" href="{{asset('assets/css/apps/scrumboard.css')}}" type="text/css">
 <link rel="stylesheet" href="{{asset('assets/css/apps/notes.css')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('assets/css/apexcharts.css')}}" type="text/css">
+
 
 <style>
     aside{
