@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Denomination;
 use App\Models\Product;
 use App\Models\SaleDetails;
+use App\Models\Sale;
 use Livewire\Component;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use DB;
@@ -207,7 +208,7 @@ class PosController extends Component
             {
                 $items = Cart::getContent();
                 foreach ($items as $item) {
-                    SaleDetail::create([
+                    SaleDetails::create([
                         'price' => $item->price,
                         'quantity' => $item->quantity,
                         'product_id' => $item->id,

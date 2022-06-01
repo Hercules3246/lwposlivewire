@@ -65,5 +65,5 @@
         border-radius: 30px;
     }
 </style>
-
+<link rel="stylesheet" href="{{asset('plugins/flatpickr/flatpickr.dark.css')}}" type="text/css">
 @livewireStyles
