@@ -2,7 +2,7 @@
 <link href="assets/css/loader.css" rel="stylesheet" type="text/css" />
 <script src="assets/js/loader.js"></script>
  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+ <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
  <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
  <link href="assets/css/structure.css" rel="stylesheet" type="text/css" class="structure" />
 
@@ -20,7 +20,7 @@
 
 <link rel="stylesheet" href="{{asset('assets/css/apps/scrumboard.css')}}" type="text/css">
 <link rel="stylesheet" href="{{asset('assets/css/apps/notes.css')}}" type="text/css">
-<link rel="stylesheet" href="{{asset('assets/css/apexcharts.css')}}" type="text/css">
+<link rel="stylesheet" href="{{asset('plugins/apex/apexcharts.css')}}" type="text/css">
 
 
 <style>

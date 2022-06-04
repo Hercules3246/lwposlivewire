@@ -27,6 +27,16 @@ class User extends Authenticatable
         'iamge',
     ];
 
+
+
+    public function getImagenAttribute()
+    {
+        if($this->image != null)
+        return (file_exists('storage/users/' . $this->image) ? 'users/'.$this->image : 'noimg.jpg');
+    else
+        return 'noimg.jpg';
+
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

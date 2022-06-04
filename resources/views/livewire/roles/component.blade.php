@@ -7,13 +7,16 @@
                     <b>{{ $ComponentName }} | {{ $PageTitle }}</b>
                 </h4>
                 <ul class="tabs tab-pills">
+                    @can('Role_Create')
                     <li>
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#theModal">Agregar</a>
                     </li>
+                    @endcan
                 </ul>
             </div>
+            @can('Role_Search')
             @include('common.searchbox')
-
+            @endcan
             <div class="widget-content">
 
                 <div class="table-responsive">
@@ -36,15 +39,18 @@
                                     </td>
 
                                     <td class="text-center">
+                                        @can('Role_Update')
                                         <a href="javascript:void(0)" wire:click="Edit({{ $rol->id }})"
                                             class="btn btn-dark mtmobile" title="Editar Registro">
                                             <i class="fas fa-edit"></i>
                                         </a>
-
+                                        @endcan
+                                        @can('Role_Destroy')
                                         <a href="javascript:void(0)" onclick="Confirm('{{ $rol->id }}')"
                                             class="btn btn-dark" title="Eliminar Registro">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        @endcan
 
 
                                     </td>
@@ -69,7 +75,7 @@
 
 <script>
      document.addEventListener('DOMContentLoaded', function(){
-          
+
 
 
           window.livewire.on('role-added', Msg => {
@@ -80,30 +86,30 @@
               $('#theModal').modal('hide')
               noty(Msg)
           })
-          window.livewire.on('role-deleted', Msg => {           
+          window.livewire.on('role-deleted', Msg => {
               noty(Msg)
           })
-          window.livewire.on('role-exists', Msg => {            
+          window.livewire.on('role-exists', Msg => {
               noty(Msg)
           })
-          window.livewire.on('role-error', Msg => {            
+          window.livewire.on('role-error', Msg => {
               noty(Msg)
           })
           window.livewire.on('hide-modal', Msg => {
-              $('#theModal').modal('hide')            
+              $('#theModal').modal('hide')
           })
           window.livewire.on('show-modal', Msg => {
               $('#theModal').modal('show')
           })
-          
-                 
-  
+
+
+
       });
-  
-  
+
+
       function Confirm(id)
-      {   
-  
+      {
+
           swal({
               title: 'CONFIRMAR',
               text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
@@ -118,7 +124,7 @@
                   window.livewire.emit('destroy', id)
                   swal.close()
               }
-  
+
           })
       }
 </script>

@@ -7,13 +7,17 @@
 					<b>{{ $ComponentName }} | {{ $PageTitle }}</b>
 				</h4>
 				<ul class="tabs tab-pills">
+                    @can('User_Create')
 					<li>
 						<a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#theModal">Agregar</a>
 					</li>
+                    @endcan
 				</ul>
 			</div>
-			@include('common.searchbox')
+            @can('User_Search')
 
+			@include('common.searchbox')
+            @endcan
 			<div class="widget-content">
 
 				<div class="table-responsive">
@@ -40,24 +44,28 @@
 								</td>
                                 <td class="text-center text-uppercase"><h6>{{$r->profile}}</h6></td>
 								<td class="text-center">
-									@if ($r->image != null)
-									<img class="card-img-top img-fluid" src="{{asset('storage/users/'. $r->image)}}" alt="imagen">
-									@endif
+                                    <span>
+										<img src="{{asset('storage/'.$r->imagen)}}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+									</span>
 								</td>
 
 								<td class="text-center">
+                                    @can('User_Update')
+
 									<a href="javascript:void(0)"
 									wire:click="edit({{$r->id}})"
 									class="btn btn-dark mtmobile" title="Edit">
 										<i class="fas fa-edit"></i>
 									</a>
+                                    @endcan
+                                    @can('User_Destroy')
 
 									<a href="javascript:void(0)"
 									onclick="Confirm('{{$r->id}}')"
 									class="btn btn-dark" title="Delete">
 										<i class="fas fa-trash"></i>
 									</a>
-
+                                    @endcan
 
 								</td>
 							</tr>

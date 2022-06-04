@@ -129,6 +129,10 @@ if($this->image)
     $this->image->storeAs('public/users', $customFileName);
     $user->image = $customFileName;
     $user->save();
+}else
+{
+    $user->image = 'avatar.jpg';
+    $user->save();
 }
 
 $this->resetUI();
@@ -188,8 +192,10 @@ public function Update()
                 unlink('storage/users/' . $imageTemp);
             }
         }
-
-
+    }else
+    {
+        $user->image = 'avatar.jpg';
+        $user->save();
     }
 
     $this->resetUI();

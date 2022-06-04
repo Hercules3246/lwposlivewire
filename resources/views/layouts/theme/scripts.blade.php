@@ -30,7 +30,7 @@
     }
 </script>
 <script src="{{asset('plugins/flatpickr/flatpickr.js')}}"></script>
-<script src="{{asset('js/apexcharts.js')}}"></script>
+<script src="{{asset('plugins/apex/apexcharts.min.js')}}"></script>
 
 
 @livewireScripts

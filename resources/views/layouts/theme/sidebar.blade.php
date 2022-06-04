@@ -3,6 +3,33 @@
 
         <ul class="menu-categories">
 
+            @can('Home_Index')
+            <li class="active">
+                {{-- href="{{url('categories')}}"  --}}
+                <a href="{{url('home')}}" class="menu-toggle" data-active="true">
+                    <div class="base-menu">
+                        <div class="base-icons">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+
+                        </div>
+                        <span>TABLERO</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+            @can('Pos_Index')
+            <li class="">
+                {{-- {{ url('pos') }} --}}
+                <a href="{{ url('pos') }}" class="menu-toggle" data-active="false">
+                    <div class="base-menu">
+                        <div class="base-icons">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                       </div>
+                       <span>VENTAS</span>
+                   </div>
+               </a>
+           </li>
+           @endcan
             @can('Category_Index')
             <li class="active">
                 {{-- href="{{url('categories')}}"  --}}
@@ -17,7 +44,6 @@
             </li>
             @endcan
 
-
             @can('Product_Index')
             <li class="">
                 {{-- {{ url('products') }} --}}
@@ -31,18 +57,8 @@
                 </a>
             </li>
             @endcan
-            <li class="">
-                {{-- {{ url('pos') }} --}}
-                <a href="{{ url('pos') }}" class="menu-toggle" data-active="false">
-                    <div class="base-menu">
-                        <div class="base-icons">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                       </div>
-                       <span>VENTAS</span>
-                   </div>
-               </a>
-           </li>
 
+            @can('Role_Index')
            <li class="">
             {{-- {{ url('roles') }} --}}
             <a href="{{ url('roles') }}" class="menu-toggle" data-active="false">
@@ -54,8 +70,8 @@
                </div>
            </a>
        </li>
-
-
+       @endcan
+       @can('Permission_Index')
        <li class="">
         {{-- {{ url('permisos') }} --}}
         <a href="{{ url('permisos') }}" class="menu-toggle" data-active="false">
@@ -67,6 +83,8 @@
            </div>
        </a>
    </li>
+   @endcan
+   @can('Asignar_Index')
    <li class="">
     {{-- {{ url('asignar') }} --}}
     <a href="{{url('asignar') }}" class="menu-toggle" data-active="false">
@@ -78,6 +96,8 @@
       </div>
   </a>
 </li>
+@endcan
+@can('User_Index')
 <li class="">
     {{-- {{ url('users') }} --}}
     <a href="{{ url('users') }}" class="menu-toggle" data-active="false">
@@ -89,6 +109,8 @@
        </div>
    </a>
 </li>
+@endcan
+@can('Denomination_Index')
 <li class="">
     {{-- {{ url('coins') }} --}}
     <a href="{{ url('coins') }}" class="menu-toggle" data-active="false">
@@ -100,6 +122,8 @@
      </div>
  </a>
 </li>
+@endcan
+@can('Cashout_Index')
 <li class="">
     {{-- {{url('cashout')}} --}}
     <a href="{{url('cashout')}}" class="menu-toggle" data-active="false">
@@ -111,6 +135,8 @@
         </div>
     </a>
 </li>
+@endcan
+@can('Reports_Index')
 <li class="">
     {{-- {{url('reports')}} --}}
     <a href="{{url('reports')}}" class="menu-toggle" data-active="false">
@@ -122,7 +148,7 @@
         </div>
     </a>
 </li>
-
+@endcan
 </ul>
 
 

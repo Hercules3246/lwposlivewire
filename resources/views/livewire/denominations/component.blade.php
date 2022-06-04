@@ -7,13 +7,19 @@
 					<b>{{$ComponentName}} | {{$PageTitle}}</b>
 				</h4>
 				<ul class="tabs tab-pills">
+                    @can('Denomination_Create')
+
 					<li>
 						<a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#theModal">Agregar</a>
 					</li>
+                    @endcan
+
 				</ul>
 			</div>
-			@include('common.searchbox')
+            @can('Denomination_Search')
 
+			@include('common.searchbox')
+            @endcan
 			<div class="widget-content">
 
 				<div class="table-responsive">
@@ -39,18 +45,22 @@
 								</td>
 
 								<td class="text-center">
+                                    @can('Denomination_Update')
+
 									<a href="javascript:void(0)"
                                     wire:click="Edit({{$coin->id}})"
                                     class="btn btn-dark mtmobile" title="Edit">
 										<i class="fas fa-edit"></i>
 									</a>
+                                    @endcan
+                                    @can('Denomination_Destroy')
 
                                     <a href="javascript:void(0)"
                                     onclick="Confirm('{{$coin->id}}')"
                                     class="btn btn-dark" title="Delete">
 										<i class="fas fa-trash"></i>
 									</a>
-
+                                    @endcan
 								</td>
 							</tr>
                             @endforeach

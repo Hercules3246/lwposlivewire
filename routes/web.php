@@ -27,7 +27,7 @@ use App\Http\Livewire\UsersController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', DashController::class);
@@ -39,12 +39,12 @@ Route::get('/products', ProductController::class);
 Route::get('/coins', CoinsController::class);
 Route::get('/pos', PosController::class);
 
-Route::group(['middleware' => ['role:Admin']], function () {
+// Route::group(['middleware' => ['role:Admin']], function () {
 Route::get('/roles', RolesController::class);
 Route::get('/permisos', PermisosController::class);
 Route::get('/asignar', AsignarController::class);
 
-});
+// });
 Route::get('/users', UsersController::class);
 Route::get('/cashout', CashoutController::class);
 Route::get('/reports', ReportsController::class);
