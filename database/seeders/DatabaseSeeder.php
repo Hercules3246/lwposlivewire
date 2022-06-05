@@ -31,7 +31,10 @@ class DatabaseSeeder extends Seeder
 
         $user = User::find(1);
         $user->assignRole('SUPER');
-
+        $user = User::find(2);
+        $user->assignRole('ADMIN');
+        $user = User::find(3);
+        $user->assignRole('EMPLOYEE');
             $permissions = [
                 'Home_Index',
                 'Pos_Index',
@@ -151,5 +154,7 @@ class DatabaseSeeder extends Seeder
          $role2->givePermissionTo('Product_Search');
          $role2->givePermissionTo('Denomination_Index');
          $role2->givePermissionTo('Denomination_Search');
+
+
         }
 }
