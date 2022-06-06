@@ -171,9 +171,16 @@
                         </div>
                     </div>
                     <div class="dropdown-item">
-                        <a href="user_profile.html">
+                        <a href="{{url('profile')}}">
                             <i class="fas fa-user"></i>
                              <span>Mi Perfil</span>
+                        </a>
+                    </div>
+
+                    <div class="dropdown-item">
+                        <a href="{{url('password')}}">
+                            <i class="fas fa-lock"></i>
+                             <span>Contraseña</span>
                         </a>
                     </div>
 

@@ -46,7 +46,7 @@
             </div>
 
 
-            @include('layouts.theme.footer')
+            {{-- @include('layouts.theme.footer') --}}
         </div>
         <!--  END CONTENT AREA  -->
 
