@@ -21,7 +21,7 @@
                                 <td class="text-center table-th">
                                     @if(count($item->attributes)>0)
                                     <span>
-                                        <img src="{{ asset('storage/products/'.$item->attributes[0]) }}"
+                                        <img src="{{ asset('storage/'.$item->attributes[0]) }}"
                                          alt="imàgen de producto" height="90" width="90" class="rounded">
                                     </span>
                                     @endif
@@ -45,7 +45,7 @@
                                         <i class="fas fa-minus"></i>
                                     </button>
                                     <button wire:click.prevent="increaseQty({{$item->id}})" class="btn btn-dark mbmobile">
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-plus"></i>
                                     </button>
                                 </td>
                             </tr>
