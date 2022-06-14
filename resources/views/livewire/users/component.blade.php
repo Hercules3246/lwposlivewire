@@ -50,11 +50,28 @@
 								</td>
 
 								<td class="text-center">
-                                    @can('User_Update')
+									@can('User_Active')
+
+									<a href="javascript:void(0)"
+									onclick="ActiveUser('{{$r->id}}')"
+									class="btn btn-dark" title="Activar">
+										<i class="fas fa-check-square"></i>
+									</a>
+                                    @endcan
+                                    @can('User_Inactive')
+
+									<a href="javascript:void(0)"
+									onclick="InactiveUser('{{$r->id}}')"
+									class="btn btn-dark" title="Inactivar">
+										<i class="fas fa-ban"></i>
+									</a>
+                                    @endcan
+									
+									@can('User_Update')
 
 									<a href="javascript:void(0)"
 									wire:click="edit({{$r->id}})"
-									class="btn btn-dark mtmobile" title="Edit">
+									class="btn btn-dark mtmobile" title="Editar">
 										<i class="fas fa-edit"></i>
 									</a>
                                     @endcan
@@ -62,7 +79,7 @@
 
 									<a href="javascript:void(0)"
 									onclick="Confirm('{{$r->id}}')"
-									class="btn btn-dark" title="Delete">
+									class="btn btn-dark" title="Eliminar">
 										<i class="fas fa-trash"></i>
 									</a>
                                     @endcan
@@ -109,6 +126,12 @@
         window.livewire.on('user-withsales', Msg => {
             noty(Msg)
         })
+		window.livewire.on('user-active', Msg => {
+            noty(Msg)
+        })
+        window.livewire.on('user-inactive', Msg => {
+            noty(Msg)
+        })
 
     });
 
@@ -127,6 +150,46 @@
         }).then(function(result) {
             if(result.value){
                 window.livewire.emit('deleteRow', id)
+                swal.close()
+            }
+
+        })
+    }
+	function ActiveUser(id)
+    {
+
+        swal({
+            title: 'CONFIRMAR',
+            text: '¿CONFIRMAS ACTIVAR EL USUARIO?',
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#fff',
+            confirmButtonColor: '#3B3F5C',
+            confirmButtonText: 'Aceptar'
+        }).then(function(result) {
+            if(result.value){
+                window.livewire.emit('activeUser', id)
+                swal.close()
+            }
+
+        })
+    }
+    function InactiveUser(id)
+    {
+
+        swal({
+            title: 'CONFIRMAR',
+            text: '¿CONFIRMAS DESACTIVAR EL USUARIO?',
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#fff',
+            confirmButtonColor: '#3B3F5C',
+            confirmButtonText: 'Aceptar'
+        }).then(function(result) {
+            if(result.value){
+                window.livewire.emit('inactiveUser', id)
                 swal.close()
             }
 

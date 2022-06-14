@@ -34,16 +34,16 @@ class UsersController extends Component
 
     public function render()
     {
-        if(strlen($this->search) > 0)
-            $data = User::where('name', 'like', '%' . $this->search . '%')
-        ->select('*')->orderBy('name','asc')->paginate($this->pagination);
+        if (strlen($this->search) > 0)
+        $data = User::where('name', 'like', '%' . $this->search . '%')->whereNotIn('id', [1, 2])
+            ->select('*')->orderBy('name', 'asc')->paginate($this->pagination);
         else
-           $data = User::select('*')->orderBy('name','asc')->paginate($this->pagination);
+        $data = User::select('*')->whereNotIn('id', [1, 2])->orderBy('name', 'asc')->paginate($this->pagination);
 
 
        return view('livewire.users.component',[
         'data' => $data,
-        'roles' => Role::orderBy('name','asc')->get()
+        'roles' =>  Role::whereNotIn('id',[1])->orderBy('name', 'asc')->get()
     ])
        ->extends('layouts.theme.app')
        ->section('content');
@@ -81,8 +81,9 @@ public function edit(User $user)
 
 protected $listeners =[
     'deleteRow' => 'destroy',
-    'resetUI' => 'resetUI'
-
+    'resetUI' => 'resetUI',
+    'activeUser' => 'active',
+        'inactiveUser' => 'inactive'
 ];
 
 
@@ -222,14 +223,43 @@ public function destroy(User $user)
 
 
 
+public function active(User $user)
+{
+    if($user->status == 'ACTIVE')
+    {
+        $this->emit('user-active', 'El Usuario ya esta con estado Activado');
+    }else
+    {
+        $user->update([
+            'status' => 'ACTIVE',
+        ]);
+        $user->save();
+        $this->emit('user-active', 'Usuario Activado');
+
+    }
+
+}
+public function inactive(User $user)
+{
+    if($user->status == 'LOCKED')
+    {
+        $this->emit('user-active', 'El Usuario ya esta con estado Inactivo');
+    }else
+    {
+        $user->update([
+            'status' => 'LOCKED',
+        ]);
+        $user->save();
+        $this->emit('user-inactive', 'Usuario Inactivado');
+
+    }
 
 
 
 
 
 
-
-
+}
 
 
 }

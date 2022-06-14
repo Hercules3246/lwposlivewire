@@ -7,8 +7,8 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Livewire\WithPagination;
 use DB;
-
-
+use App;
+use Auth;
 class AsignarController extends Component
 {
     use WithPagination;
@@ -31,10 +31,20 @@ class AsignarController extends Component
 
     public function render()
     {
+        if(Auth::user()->hasRole('SUPER'))
+        {
         $permisos = Permission::select('name','id', DB::raw("0 as checked") )
         ->orderBy('name','asc')
         ->paginate($this->pagination);
-
+        $showRol = Role::orderBy('name','asc')->get();
+        }else
+        {
+            $permisos = Permission::select('name','id', DB::raw("0 as checked") )
+            ->whereNotIn('id',[4,6,7,9,11,12,18])
+            ->orderBy('name','asc')
+            ->paginate($this->pagination);
+            $showRol = Role::whereNotIn('id',[1])->orderBy('name','asc')->get();
+        }
 
         if($this->role != 'Elegir')
         {
@@ -55,7 +65,7 @@ class AsignarController extends Component
         }
 
         return view('livewire.asignar.component',[
-            'roles' => Role::orderBy('name','asc')->get(),
+            'roles' => $showRol,
             'permisos' => $permisos
         ])->extends('layouts.theme.app')->section('content');
     }

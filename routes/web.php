@@ -5,6 +5,7 @@ use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\CashoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\CategoriesController;
+use App\Http\Livewire\ClientController;
 use App\Http\Livewire\CoinsController;
 use App\Http\Livewire\DashController;
 use App\Http\Livewire\PasswordController;
@@ -41,7 +42,7 @@ Route::get('/products', ProductController::class);
 Route::get('/coins', CoinsController::class);
 Route::get('/pos', PosController::class);
 
-Route::group(['middleware' => ['role:SUPER']], function () {
+Route::group(['middleware' => ['role:SUPER|ADMIN']], function () {
 Route::get('/roles', RolesController::class);
 Route::get('/permisos', PermisosController::class);
 Route::get('/asignar', AsignarController::class);
@@ -49,6 +50,8 @@ Route::get('/asignar', AsignarController::class);
 });
 Route::get('/users', UsersController::class);
 Route::get('/cashout', CashoutController::class);
+Route::get('/clients', ClientController::class);
+
 Route::get('/reports', ReportsController::class);
 //reportes PDF
 Route::get('/report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);

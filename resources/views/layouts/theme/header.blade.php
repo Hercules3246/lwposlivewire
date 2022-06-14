@@ -170,13 +170,14 @@
                             </div>
                         </div>
                     </div>
+                    @can('Profile_Index')
                     <div class="dropdown-item">
                         <a href="{{url('profile')}}">
                             <i class="fas fa-user"></i>
                              <span>Mi Perfil</span>
                         </a>
                     </div>
-
+                    @endcan
                     <div class="dropdown-item">
                         <a href="{{url('password')}}">
                             <i class="fas fa-lock"></i>

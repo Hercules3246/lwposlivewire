@@ -123,6 +123,62 @@
  </a>
 </li>
 @endcan
+@can('Client_Index')
+
+<li class="">
+    {{-- {{ url('pos') }} --}}
+    <a href="{{ url('clients') }}" class="menu-toggle" data-active="false">
+        <div class="base-menu">
+            <div class="base-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>           
+            </div>
+           <span>CLIENTES</span>
+       </div>
+   </a>
+</li>
+@endcan
+@can('Route_Index')
+
+<li class="">
+    {{-- {{ url('pos') }} --}}
+    <a href="{{ url('pos') }}" class="menu-toggle" data-active="false">
+        <div class="base-menu">
+            <div class="base-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            </div>
+            <span>RUTAS</span>
+       </div>
+   </a>
+</li>
+@endcan
+@can('Orders_Index')
+
+<li class="">
+    {{-- {{ url('pos') }} --}}
+    <a href="{{ url('pos') }}" class="menu-toggle" data-active="false">
+        <div class="base-menu">
+            <div class="base-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+            </div>
+            <span>PEDIDOS</span>
+       </div>
+   </a>
+</li>
+@endcan
+@can('Deliver_Index')
+
+<li class="">
+    {{-- {{ url('pos') }} --}}
+    <a href="{{ url('pos') }}" class="menu-toggle" data-active="false">
+        <div class="base-menu">
+            <div class="base-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <span>ENTREGAS</span>
+       </div>
+   </a>
+</li>
+@endcan
 @can('Cashout_Index')
 <li class="">
     {{-- {{url('cashout')}} --}}
