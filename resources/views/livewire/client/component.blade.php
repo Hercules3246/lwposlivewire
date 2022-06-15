@@ -65,14 +65,14 @@
                                 @can('Client_Update')
 								<td class="text-center">
 									<a href="javascript:void(0)"
-                                    wire:click="Edit({{$client->id}})"
+                                    wire:click="Edit({{$client->idcliente}})"
                                     class="btn btn-dark mtmobile" title="Editar">
 										<i class="fas fa-edit"></i>
 									</a>
                                 @endcan
                                 @can('Client_Destroy')
                                     <a href="javascript:void(0)"
-                                    onclick="Confirm('{{$client->id}}')"
+                                    onclick="Confirm('{{$client->idcliente}}')"
                                     class="btn btn-dark" title="Eliminar">
 										<i class="fas fa-trash"></i>
 									</a>
