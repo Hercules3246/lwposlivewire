@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre_representante','nombre_establecimiento','direccion','telefono','celular','routes_id'];
- 
-    public function route()
-    {
-        return $this->belongsTo(Route::class);
-    }
+    protected $fillable = ['nombre_representante','nombre_establecimiento','direccion','telefono','celular','user_id','updated_by'];
+
 }

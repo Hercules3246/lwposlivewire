@@ -14,9 +14,10 @@
                     @endcan
 				</ul>
 			</div>
-            @can('Client_Search')
-			@include('common.searchbox')
-            @endcan
+           
+			@include('livewire.client.searchbox')
+            
+            
 			<div class="widget-content">
 
 				<div class="table-responsive">
@@ -29,6 +30,8 @@
 								<th class="table-th text-white text-center">CELULAR</th>
 								<th class="table-th text-white text-center">TELEFONO</th>
 								<th class="table-th text-white text-center">DIRECCION</th>
+                                <th class="table-th text-white text-center">VENDEDOR</th>
+                                <th class="table-th text-white text-center">F. CREACION</th>
 								<th class="table-th text-white text-center">ACCIONES</th>
 
 							</tr>
@@ -37,7 +40,7 @@
                             @foreach ($data as $client)
 
 							<tr>
-								<td><h6>{{$client->id}}</h6></td>
+								<td><h6>{{$client->idcliente}}</h6></td>
 								<td class="text-center">
                                     <h6>{{$client->nombre_representante}}
 								</td>
@@ -52,6 +55,12 @@
 								</td>
                                 <td class="text-center">
                                     <h6>{{$client->direccion}}
+								</td>
+                                <td class="text-center">
+                                    <h6>{{$client->name}}
+								</td>
+                                <td class="text-center">
+                                    <h6>{{$client->fcreacion}}
 								</td>
                                 @can('Client_Update')
 								<td class="text-center">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Client;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\Denomination;
 use App\Models\SaleDetails;
@@ -31,10 +32,16 @@ class PosController extends Component
 
 	public function render()
 	{
-
+		if(Auth::user()->hasRole('SUPER') || Auth::user()->hasRole('ADMIN') )
+		{
+			$clients=	Client::join('users as u','u.id','clients.user_id')->orderBy('id','desc')->get();
+		}else {
+			$clients=Client::where('user_id','=',Auth::user()->id)->orderBy('id','desc')->get();
+		}
 		return view('livewire.pos.component', [
 			'denominations' => Denomination::orderBy('value','desc')->get(),
-			'cart' => Cart::getContent()->sortBy('name')
+			'cart' => Cart::getContent()->sortBy('name'),
+			'clients' => $clients
 		])
 		->extends('layouts.theme.app')
 		->section('content');

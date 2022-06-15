@@ -10,7 +10,8 @@
             <!-- TOTAL -->
             @include('livewire.pos.partials.total')
             <!-- DENOMINATIONS -->
-            @include('livewire.pos.partials.coins')
+            {{-- @include('livewire.pos.partials.coins') --}}
+            @include('livewire.pos.partials.asign')
         </div>
     </div>
 </div>

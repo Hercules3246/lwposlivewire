@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
                 'Orders_Index',
                 'Deliver_Index',
                 'Client_Index',
+                'Client_Filter',
                 'Client_Create',
                 'Client_Search',
                 'Client_Update',
@@ -104,6 +105,7 @@ class DatabaseSeeder extends Seeder
          $role->givePermissionTo('Client_Index');
          $role->givePermissionTo('Client_Create');
          $role->givePermissionTo('Client_Search');
+         $role->givePermissionTo('Client_Filter');
          $role->givePermissionTo('Client_Update');
          $role->givePermissionTo('Client_Destroy');
          $role->givePermissionTo('Product_Index');
@@ -157,6 +159,7 @@ class DatabaseSeeder extends Seeder
          $role1->givePermissionTo('Client_Index');
          $role1->givePermissionTo('Client_Create');
          $role1->givePermissionTo('Client_Search');
+         $role1->givePermissionTo('Client_Filter');
          $role1->givePermissionTo('Client_Update');
          $role1->givePermissionTo('Client_Destroy');
          $role1->givePermissionTo('Role_Index');
@@ -187,7 +190,8 @@ class DatabaseSeeder extends Seeder
          $role2->givePermissionTo('Product_Search');
          $role2->givePermissionTo('Denomination_Index');
          $role2->givePermissionTo('Denomination_Search');
-
-
+         $role2->givePermissionTo('Client_Index');
+         $role2->givePermissionTo('Client_Search');
+         $role2->givePermissionTo('Client_Create');
         }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Client ;
+use App\Models\User ;
+
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
@@ -14,12 +17,13 @@ use WithPagination;
 
     // propiedades publicas
 
-    public $name,$nameCompany, $cel, $phone, $address ,$search, $selected_id, $PageTitle, $ComponentName;
+    public $name,$nameCompany, $cel, $phone, $address ,$search, $selected_id, $PageTitle,$vendedorId, $ComponentName;
     private $pagination = 5;
     // metodo que se va a ejecutar antes de renderizar el componente
     public function mount(){
         $this->ComponentName = 'Clientes';
         $this->PageTitle = 'Listado';
+		$this->vendedorId = 0;
     }
 
     public function paginationView()
@@ -32,12 +36,53 @@ use WithPagination;
 
     public function render()
     {
-        if(strlen($this->search) >0)
-            $data = Client::where('id','like','%'.$this->search.'%')->orWhere('name','like','%'.$this->search.'%')->paginate($this->pagination);
-        else
-        $data = Client::orderBy('id','asc')->paginate($this->pagination);
+		if(Auth::user()->hasRole('SUPER') || Auth::user()->hasRole('ADMIN') )
+		{
+				//si tenemos una busqueda 
+			if(strlen($this->search) >0 ){
+				//si tenemos una busqueda y NO tenemos seleccionado un VENDEDOR en especifico 
+				if($this->vendedorId == 0){
+					$data=Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+					->where('clients.id','like','%'.$this->search.'%')->orWhere('clients.nombre_representante','like','%'.$this->search.'%')
+					->orWhere('clients.nombre_establecimiento','like','%'.$this->search.'%')->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
+				// si tenemos una busqueda y tenemos seleccionado un VENDEDOR en especifico 
+				}else{
+					$data=	Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+					->where('user_id', $this->vendedorId)->where('clients.id','like','%'.$this->search.'%')->
+					orWhere('clients.nombre_representante','like','%'.$this->search.'%')->orWhere('clients.nombre_establecimiento','like','%'.$this->search.'%')
+					->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
+				}
+				//si NO tenemos una busqueda 
+			}else{
+				//si NO tenemos una busqueda y NO tenemos seleccionado un vendedor 
+				if($this->vendedorId == 0){
+					$data=	Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+					->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
+				//si NO tenemos una busqueda y tenemos seleccionado un vendedor y NO una busqueda
+				}else{
+					$data=	Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+					->where('user_id', $this->vendedorId)->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
 
-        return view('livewire.client.component', ['data' => $data])
+				}
+			}
+			$vendedores = User::orderBy('name', 'asc')->get();
+
+		}else {
+			if(strlen($this->search) >0){
+			$data=	Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+			->where('user_id','=',Auth::user()->id)->where('clients.id','like','%'.$this->search.'%')->
+			orWhere('clients.nombre_representante','like','%'.$this->search.'%')->orWhere('clients.nombre_establecimiento','like','%'.$this->search.'%')
+			->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
+			}else
+			{
+			$data=	Client::select('clients.id as idcliente','clients.nombre_establecimiento','clients.nombre_representante','clients.celular','clients.telefono','clients.direccion','clients.updated_by','clients.user_id','clients.created_at as fcreacion','u.*')
+			->where('user_id','=',Auth::user()->id)->join('users as u','u.id','clients.user_id')->orderBy('clients.id','desc')->paginate($this->pagination);
+			}
+			$vendedores = User::orderBy('name', 'asc')->get();
+
+		}
+
+        return view('livewire.client.component', ['data' => $data,'vendedores' => $vendedores])
         ->extends('layouts.theme.app')
         ->section('content');
     }
@@ -58,9 +103,9 @@ use WithPagination;
 	{
 		$rules = [
 			'name' => 'required|min:3|max:60|regex:/^[ña-zA-Z ]+$/',
-			'nameCompany' => 'required|min:3|max:150|regex:/^[ña-zA-Z ]+$/',
+			'nameCompany' => 'required|min:3|max:150|string',
 			'address' => 'required|min:3|max:200',
-            'cel' => 'nullable|numeric|digits:10',
+            'cel' => 'required|numeric|digits:10|unique:clients,celular',
             'phone' => 'nullable|numeric',
 		];
 
@@ -72,11 +117,11 @@ use WithPagination;
             'nameCompany.required' => 'Nombre del establecimiento es requerido',
 			'nameCompany.max' => 'El nombre del establecimiento debe tener maximo 150 caracteres',
 			'nameCompany.min' => 'El nombre del establecimiento debe tener al menos 3 caracteres',
-            'nameCompany.regex' => 'El nombre del establecimiento solo debe contener letras (No se permiten números o caracteres especiales como tildes, comas, etc).',
-            
+            'nameCompany.string' => 'El nombre del establecimiento debe contener caracteres alphanumericos',
+            'cel.required' => 'El numero de celular es requerido',
             'cel.numeric' => 'El numero de celular solo debe tener caracteres numericos',
             'cel.digits' => 'El numero de celular solo debe tener 10 digitos',
-           
+			'cel.unique' => 'El numero de celular ya existe registrado a un cliente',
             'phone.numeric' => 'El numero de telefono solo debe tener caracteres numericos',
 		];
 
@@ -87,7 +132,8 @@ use WithPagination;
 			'nombre_establecimiento' => $this->nameCompany,
 			'celular' => $this->cel,
 			'telefono' => $this->phone,
-			'direccion' => $this->address
+			'direccion' => $this->address,
+			'user_id' => auth()->user()->id
 		]);
 
 
@@ -103,9 +149,9 @@ use WithPagination;
 	{
 		$rules = [
 			'name' => 'required|min:3|max:60|regex:/^[ña-zA-Z ]+$/',
-			'nameCompany' => 'required|min:3|max:150|regex:/^[ña-zA-Z ]+$/',
+			'nameCompany' => 'required|min:3|max:150|string',
 			'address' => 'required|min:3|max:200',
-            'cel' => 'nullable|numeric|digits:10',
+            'cel' => "required|numeric|digits:10|unique:clients,celular,{$this->selected_id}",
             'phone' => 'nullable|numeric',
 		];
 
@@ -117,12 +163,12 @@ use WithPagination;
             'nameCompany.required' => 'Nombre del establecimiento es requerido',
 			'nameCompany.max' => 'El nombre del establecimiento debe tener maximo 150 caracteres',
 			'nameCompany.min' => 'El nombre del establecimiento debe tener al menos 3 caracteres',
-            'nameCompany.regex' => 'El nombre del establecimiento solo debe contener letras (No se permiten números o caracteres especiales como tildes, comas, etc).',
-            
+            'nameCompany.string' => 'El nombre del establecimiento debe contener caracteres alphanumericos',
+            'cel.required' => 'El numero de celular es requerido',
             'cel.numeric' => 'El numero de celular solo debe tener caracteres numericos',
             'cel.digits' => 'El numero de celular solo debe tener 10 digitos',
-           
-            'phone.numeric' => 'El numero de telefono solo debe tener caracteres numericos',
+			'cel.unique' => 'El numero de celular ya existe registrado a un cliente',
+            'phone.numeric' => 'El numero de telefono solo debe tener caracteres numericos'
 		];
 
 		$this->validate($rules, $messages);
@@ -135,6 +181,10 @@ use WithPagination;
 			'celular' => $this->cel,
 			'telefono' => $this->phone,
 			'direccion' => $this->address,
+			'updated_by' => Auth::user()->id,
+			'user_id' => $client->user_id,
+			
+
 		]);
 
 		

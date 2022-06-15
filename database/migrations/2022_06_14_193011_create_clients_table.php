@@ -20,6 +20,9 @@ class CreateClientsTable extends Migration
             $table->string('celular')->nullable();
             $table->string('telefono')->nullable();
             $table->string('direccion');
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
     }
