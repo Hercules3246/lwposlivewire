@@ -421,7 +421,7 @@ var App = function() {
                     $(".navbar").addClass("expand-header");
                     $('.overlay').addClass('show');
                     $('#container').addClass('sbar-open');
-                    $('.sidebar-wrapper [aria-expanded="true"]').parents('li.menu').find('.collapse').removeClass('show');
+                    // $('.sidebar-wrapper [aria-expanded="true"]').parents('li.menu').find('.collapse').removeClass('show');
                 }
             }
 

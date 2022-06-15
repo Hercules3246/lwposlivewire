@@ -7,14 +7,14 @@
 					<b>{{$ComponentName}} | {{$PageTitle}}</b>
 				</h4>
 				<ul class="tabs tab-pills">
-                    @can('Category_Create')
+                    @can('Client_Create')
 					<li>
 						<a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#theModal">Agregar</a>
 					</li>
                     @endcan
 				</ul>
 			</div>
-            @can('Category_Search')
+            @can('Client_Search')
 			@include('common.searchbox')
             @endcan
 			<div class="widget-content">
@@ -53,7 +53,7 @@
                                 <td class="text-center">
                                     <h6>{{$client->direccion}}
 								</td>
-                                @can('Category_Update')
+                                @can('Client_Update')
 								<td class="text-center">
 									<a href="javascript:void(0)"
                                     wire:click="Edit({{$client->id}})"
@@ -61,7 +61,7 @@
 										<i class="fas fa-edit"></i>
 									</a>
                                 @endcan
-                                @can('Category_Destroy')
+                                @can('Client_Destroy')
                                     <a href="javascript:void(0)"
                                     onclick="Confirm('{{$client->id}}')"
                                     class="btn btn-dark" title="Eliminar">
@@ -107,7 +107,6 @@
             });
             window.livewire.on('show-modal',msg => {
                 $('#theModal').modal('show');
-                // alert("funcionando......................");
             });
             $('#themodal').on('hidden.bs.modal',function(e){
                 $('.er').css('display','none');

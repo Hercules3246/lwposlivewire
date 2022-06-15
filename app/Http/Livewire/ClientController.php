@@ -44,11 +44,13 @@ use WithPagination;
 
     public function Edit($id)
 	{
-		$record = Client::find($id, ['id','name','image']);
-		$this->name = $record->name;
+		$record = Client::find($id, ['id','nombre_establecimiento','nombre_representante','celular','telefono','direccion']);
+		$this->name = $record->nombre_representante;
+		$this->nameCompany = $record->nombre_establecimiento;
+		$this->address = $record->direccion;
+		$this->cel = $record->celular;
+		$this->phone = $record->telefono;
 		$this->selected_id = $record->id;
-		$this->image = null;
-
 		$this->emit('show-modal', 'show-modal');
 	}
 
@@ -91,7 +93,7 @@ use WithPagination;
 
 
 		$this->resetUI();
-		$this->emit('client-added','Categoría Registrada');
+		$this->emit('client-added','Cliente Registrado');
 
 	}
 
@@ -99,45 +101,45 @@ use WithPagination;
 
 	public function Update()
 	{
-		$rules =[
-			'name' => "required|min:3|unique:categories,name,{$this->selected_id}"
+		$rules = [
+			'name' => 'required|min:3|max:60|regex:/^[ña-zA-Z ]+$/',
+			'nameCompany' => 'required|min:3|max:150|regex:/^[ña-zA-Z ]+$/',
+			'address' => 'required|min:3|max:200',
+            'cel' => 'nullable|numeric|digits:10',
+            'phone' => 'nullable|numeric',
 		];
 
-		$messages =[
-			'name.required' => 'Nombre de categoría requerido',
-			'name.min' => 'El nombre de la categoría debe tener al menos 3 caracteres',
-			'name.unique' => 'El nombre de la categoría ya existe'
+		$messages = [
+			'name.required' => 'Nombre del representante es requerido',
+			'name.max' => 'El nombre del representante debe tener maximo 60 caracteres',
+			'name.min' => 'El nombre del representante debe tener al menos 3 caracteres',
+            'name.regex' => 'El nombre del representante solo debe contener letras (No se permiten números o caracteres especiales como tildes, comas, etc).',
+            'nameCompany.required' => 'Nombre del establecimiento es requerido',
+			'nameCompany.max' => 'El nombre del establecimiento debe tener maximo 150 caracteres',
+			'nameCompany.min' => 'El nombre del establecimiento debe tener al menos 3 caracteres',
+            'nameCompany.regex' => 'El nombre del establecimiento solo debe contener letras (No se permiten números o caracteres especiales como tildes, comas, etc).',
+            
+            'cel.numeric' => 'El numero de celular solo debe tener caracteres numericos',
+            'cel.digits' => 'El numero de celular solo debe tener 10 digitos',
+           
+            'phone.numeric' => 'El numero de telefono solo debe tener caracteres numericos',
 		];
 
 		$this->validate($rules, $messages);
 
 
-		$category = Client::find($this->selected_id);
-		$category->update([
-			'name' => $this->name
+		$client = Client::find($this->selected_id);
+		$client->update([
+			'nombre_representante' => $this->name,
+			'nombre_establecimiento' => $this->nameCompany,
+			'celular' => $this->cel,
+			'telefono' => $this->phone,
+			'direccion' => $this->address,
 		]);
 
-		if($this->image)
-		{
-			$customFileName = uniqid() . '_.' . $this->image->extension();
-			$this->image->storeAs('public/categories', $customFileName);
-			$imageName = $category->image;
-
-			$category->image = $customFileName;
-			$category->save();
-
-			if($imageName !=null)
-			{
-				if(file_exists('storage/categories' . $imageName))
-				{
-					unlink('storage/categories' . $imageName);
-				}
-			}
-
-		}
-
+		
 		$this->resetUI();
-		$this->emit('category-updated', 'Categoría Actualizada');
+		$this->emit('client-updated', 'Cliente Actualizado');
 
 
 
@@ -147,24 +149,23 @@ use WithPagination;
     public function resetUI()
     {
         $this->name = '';
-        $this->image = null;
+        $this->nameCompany = '';
+        $this->cel = '';
+        $this->phone = '';
+        $this->address = '';
         $this->search = '';
         $this->selected_id = 0;
     }
 
     protected $listeners = ['deleteRow' => 'Destroy'];
 
-    public function Destroy(Client $category)
+    public function Destroy(Client $client)
 	{
-		$imageName = $category->image;
-		$category->delete();
+		$client->delete();
 
-		if($imageName !=null) {
-			unlink('storage/categories/' . $imageName);
-		}
-
+		
 		$this->resetUI();
-		$this->emit('category-deleted', 'Categoría Eliminada');
+		$this->emit('client-deleted', 'Cliente Eliminado');
 
 	}
 
