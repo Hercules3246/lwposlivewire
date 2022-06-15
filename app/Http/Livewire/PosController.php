@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Client;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\Denomination;
 use App\Models\SaleDetails;
@@ -10,14 +11,15 @@ use Livewire\Component;
 use App\Traits\CartTrait;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\User;
 use DB;
 
 class PosController extends Component
 {
 	use CartTrait;
 
-	public $total,$itemsQuantity, $efectivo, $change;
-
+	public $total,$itemsQuantity, $efectivo, $change, $vendedorId;
+	
 
 	public function mount()
 	{
@@ -25,15 +27,15 @@ class PosController extends Component
 		$this->change =0;
 		$this->total  = Cart::getTotal();
 		$this->itemsQuantity = Cart::getTotalQuantity();
-
+		$this->vendedorId = 'Elegir';
 
 	}
 
 	public function render()
 	{
-
+	
 		return view('livewire.pos.component', [
-			'denominations' => Denomination::orderBy('value','desc')->get(),
+			'clientes' => Client::where('user_id','=', auth()->user()->id)->orderBy('nombre_representante','asc')->get(),
 			'cart' => Cart::getContent()->sortBy('name')
 		])
 		->extends('layouts.theme.app')

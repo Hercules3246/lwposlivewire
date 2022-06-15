@@ -8,7 +8,21 @@
             <div class="connect-sorting-content mt-4">
                 <div class="card simple-title-task ui-sortable-handle">
                     <div class="card-body">
-
+                        <div class="row">
+                            @if ($total > 0)
+                            <div class="col-sm-12">
+                                <h6>Elige el cliente</h6>
+                                <div class="form-group">
+                                    <select wire:model="vendedorId" class="form-control">
+                                        <option value="Elegir">Selecciona...</option>
+                                        @foreach($clientes as $client)
+                                        <option value="{{$client->id}}">{{$client->nombre_representante}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
 
                         <div class="row justify-content-between mt-5">
                             <div class="col-sm-12 col-md-12 col-lg-6">
@@ -16,8 +30,9 @@
                                 <button onclick="Confirm('','clearCart','¿SEGURO DE ELIMINAR LA VENTA?')" class="btn btn-dark mtmobile">CANCELAR</button>
                                 @endif
                             </div>
+                  
                             <div class="col-sm-12 col-md-12 col-lg-6">
-                                @if ($total > 0)
+                                @if ($total > 0 && $vendedorId != 'Elegir')
                                 <button wire:click.prevent="saveSale" class="btn btn-dark btn-md btn-block">GUARDAR</button>
                                 @endif
                             </div>
